@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gestion_tickets/login/connexion.dart';
 
 class HomePage extends StatelessWidget {
   final List<String> images = [
@@ -57,7 +58,7 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(bottom: 20.0),
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Action à effectuer lorsque le bouton est pressé
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>connexion()));
                                   },
                                   child: const Text('Commencer'),
                                 ),
