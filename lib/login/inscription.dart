@@ -30,7 +30,7 @@ class SignUpPage extends StatelessWidget {
 
       // Une fois l'utilisateur inscrit, redirigez-le vers la page principale
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MyApp()),
+        MaterialPageRoute(builder: (context) =>  MyApp()),
       );
     } catch (e) {
       // ignore: use_build_context_synchronously

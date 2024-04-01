@@ -46,7 +46,7 @@ class Connexion extends StatelessWidget {
           // Rediriger vers la page d'accueil de l'étudiant avec les informations de l'étudiant
           // ignore: use_build_context_synchronously
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => EtudiantHomePage(etudiant: etudiantConnecte),
+            builder: (context) => const EtudiantHomePage(),
           ));
         } else {
           // L'utilisateur n'existe pas dans la collection Firestore
@@ -71,7 +71,7 @@ class Connexion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white12,
+      backgroundColor: Colors.grey[300],
       body: Column(
         children: [const SizedBox(height: 50),
           Image.asset(
@@ -101,7 +101,7 @@ class Connexion extends StatelessWidget {
           const SizedBox(height: 16.0),
           TextField(
             controller: _passwordController,
-           style: const TextStyle(fontSize: 10),
+            style: const TextStyle(fontSize: 10),
                 decoration: const InputDecoration(
                   labelText: 'Mot de passe',
                   border: OutlineInputBorder(
@@ -110,22 +110,13 @@ class Connexion extends StatelessWidget {
                     ),
                   ),
                 ),
-          ),
-          const SizedBox(height: 16.0),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text("Mot de passe oublie?",
-              style: TextStyle(color: Colors.blue),
-              ),
-            ],
+            obscureText: true,
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () => _signInWithEmailAndPassword(context),
             child: const Text('Se connecter'),
           ),
-
           TextButton(
             onPressed: () {
               // Naviguer vers la page d'inscription
