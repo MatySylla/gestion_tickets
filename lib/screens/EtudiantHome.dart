@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_tickets/compositions/header.dart';
 import 'package:gestion_tickets/main.dart';
 import 'package:gestion_tickets/model/Etudiant.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,10 +13,7 @@ class EtudiantHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Accueil'),
-        centerTitle: true,
-      ),
+       appBar: const MyAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
