@@ -9,7 +9,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color.fromARGB(0, 223, 221, 221),
       elevation: 0,
       title: const Text('Gestion des tickets'),
       leading: IconButton(
