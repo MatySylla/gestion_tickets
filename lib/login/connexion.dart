@@ -2,19 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gestion_tickets/login/inscription.dart';
+import 'package:gestion_tickets/login/provider/EtudiantModel.dart';
 import 'package:gestion_tickets/main.dart';
 import 'package:gestion_tickets/model/Etudiant.dart';
-import 'package:gestion_tickets/screens/EtudiantHome.dart'; // Importez la page d'inscription
+import 'package:gestion_tickets/screens/EtudiantHome.dart';
+import 'package:provider/provider.dart'; // Importez la page d'inscription
 
 // ignore: camel_case_types
 class Connexion extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Connexion({super.key});
+  Connexion({Key? key});
 
   Future<void> _signInWithEmailAndPassword(BuildContext context) async {
     try {
+      // Authentification de l'utilisateur
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
@@ -24,44 +27,19 @@ class Connexion extends StatelessWidget {
       // Récupérer les informations de l'utilisateur connecté
       User? user = userCredential.user;
       if (user != null) {
-        // Récupérer les informations supplémentaires de l'utilisateur à partir de Firestore
-        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-            .collection('etudiant')
-            .doc(user.uid)
-            .get();
-        if (userSnapshot.exists) {
-          // L'utilisateur existe dans la collection Firestore
-          // Récupérer le nom et le prénom de l'utilisateur à partir du snapshot
-          String nom = userSnapshot['nom'];
-          String prenom = userSnapshot['prenom'];
+        // Mettre à jour les données de l'étudiant dans EtudiantModel
+        // ignore: use_build_context_synchronously
+        await Provider.of<EtudiantModel>(context, listen: false)
+            .fetchEtudiantDataFromFirestore(user.uid);
 
-          // Créer un objet Etudiant avec les informations récupérées
-          Etudiant etudiantConnecte = Etudiant(
-            id: user.uid,
-            email: user.email ?? '',
-            nom: nom,
-            prenom: prenom,
-          );
-
-          // Rediriger vers la page d'accueil de l'étudiant avec les informations de l'étudiant
-          // ignore: use_build_context_synchronously
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const EtudiantHomePage(),
-          ));
-        } else {
-          // L'utilisateur n'existe pas dans la collection Firestore
-          // Gérer ce cas selon les besoins de votre application
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content:
-                    Text('Utilisateur introuvable dans la base de données')),
-          );
-        }
+        // Rediriger vers la page d'accueil de l'étudiant
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const EtudiantHomePage(),
+        ));
       }
     } catch (e) {
-      // En cas d'échec de l'authentification, affichez un message d'erreur
-      // ignore: use_build_context_synchronously
+      // En cas d'erreur d'authentification
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erreur d\'authentification : $e')),
       );
@@ -71,7 +49,7 @@ class Connexion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: Column(
         children: [const SizedBox(height: 50),
           Image.asset(
