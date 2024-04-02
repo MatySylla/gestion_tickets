@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gestion_tickets/main.dart';
 import 'package:gestion_tickets/model/Etudiant.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
@@ -15,11 +14,21 @@ class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key});
 
   Future<void> _signUpWithEmailAndPassword(BuildContext context) async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
+  // Vérifier si l'adresse e-mail est vide ou non valide
+  if (email.isEmpty || !email.contains('@')) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Veuillez saisir une adresse e-mail valide.')),
+    );
+    return;
+  }
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+        email: email,
+        password: password,
       );
 
       // Récupérer l'ID de l'utilisateur nouvellement créé
@@ -71,31 +80,68 @@ class SignUpPage extends StatelessWidget {
         title: const Text('Inscription'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+      child:Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+             Image.asset('assets/login.png'),
             TextField(
-              controller: _firstNameController,
-              decoration: const InputDecoration(labelText: 'Prénom'),
-            ),
+            controller: _firstNameController,
+            style: const TextStyle(fontSize: 15),
+                decoration: const InputDecoration(
+                  labelText: 'Prenom',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                ),
+
+          ),
+            const SizedBox(height: 16.0),
+           TextField(
+            controller: _lastNameController,
+            style: const TextStyle(fontSize: 15),
+                decoration: const InputDecoration(
+                  labelText: 'Nom',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                ),
+
+          ),
             const SizedBox(height: 16.0),
             TextField(
-              controller: _lastNameController,
-              decoration: const InputDecoration(labelText: 'Nom'),
-            ),
+            controller: _emailController,
+            style: const TextStyle(fontSize: 15),
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                ),
+
+          ),
             const SizedBox(height: 16.0),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            const SizedBox(height: 16.0),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Mot de passe'),
-              obscureText: true,
-            ),
+           TextField(
+            controller: _passwordController,
+            style: const TextStyle(fontSize: 15),
+                decoration: const InputDecoration(
+                  labelText: 'Mot de passe',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                ),
+                obscureText: true,
+          ),
             const SizedBox(height: 16.0),
             
             ElevatedButton(
@@ -105,6 +151,7 @@ class SignUpPage extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 }

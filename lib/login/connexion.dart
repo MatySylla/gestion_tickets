@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gestion_tickets/login/inscription.dart';
-import 'package:gestion_tickets/login/provider/EtudiantModel.dart';
-import 'package:gestion_tickets/main.dart';
-import 'package:gestion_tickets/model/Etudiant.dart';
+import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:gestion_tickets/screens/EtudiantHome.dart';
 import 'package:provider/provider.dart'; // Importez la page d'inscription
 
@@ -55,7 +52,7 @@ class Connexion extends StatelessWidget {
           Image.asset(
             'assets/login.png'
           ),
-          const Text("Bien venue",
+          const Text("Bienvenue",
           style: TextStyle(
             color: Color.fromARGB(255, 183, 179, 179),
             fontSize: 16
@@ -65,12 +62,12 @@ class Connexion extends StatelessWidget {
           const SizedBox(height: 25),
           TextField(
             controller: _emailController,
-            style: const TextStyle(fontSize: 10),
+            style: const TextStyle(fontSize: 15),
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(30),
+                      Radius.circular(50),
                     ),
                   ),
                 ),
@@ -79,12 +76,12 @@ class Connexion extends StatelessWidget {
           const SizedBox(height: 16.0),
           TextField(
             controller: _passwordController,
-            style: const TextStyle(fontSize: 10),
+            style: const TextStyle(fontSize: 15),
                 decoration: const InputDecoration(
                   labelText: 'Mot de passe',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(30),
+                      Radius.circular(50),
                     ),
                   ),
                 ),
