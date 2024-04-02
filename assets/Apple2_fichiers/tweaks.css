@@ -1,0 +1,58 @@
+/*
+ img[width][height] {
+  content-visibility: auto;
+}
+*/
+
+#footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 665px;
+}
+
+@media(min-width: 768px) {
+  #footer {
+    contain-intrinsic-size: 184px;
+  }
+}
+
+ins {
+  min-height: 200px;
+}
+
+textarea {
+	width: 100%;
+}
+
+.menu-item-1287523665 img,
+.menu-item-1287523668 img{
+  width: 31.42px;
+  height: 25px;
+}
+
+.menu-item-1287523666 img {
+  width: 25px;
+  height: 25px;
+}
+
+.menu-item-1287523667 img {
+  width: 30px;
+  height: 25px;
+}
+
+figure.testimonial img {
+    max-height: 290px;
+}
+
+.mainimg_div_faq .leftimgsec {
+  width: 100%;
+  height: auto;
+}
+
+.block.definitions .archive_content>a>span {
+ display: block;
+}
+
+h2 img[src$="picto.png"] {
+    width: 32px;
+    height: 32px;
+}

@@ -1,0 +1,83 @@
+/****** GENERAL ******/
+.aligncenter{
+	margin: auto;
+	text-align: center;
+	display: block 
+}
+
+.container-big {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.gradient::before,
+.gradient::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+
+.gradient::after {
+    opacity: 0;
+    z-index: 2;
+    animation: gradient 3s linear infinite alternate;
+    -webkit-animation: gradient 3s linear infinite alternate;
+    -moz-animation: gradient 3s linear infinite alternate;
+}
+
+.gradient.gradient-purple::before {
+    background-image: linear-gradient( 135deg, #322c46 0%, #5d5085 100%);
+}
+
+
+h1.gradient.gradient-purple::before {
+    background-image: linear-gradient( 135deg, #322c46 0%, #5d5085 100%);
+}
+
+.gradient.gradient-purple::after {
+    background-image: linear-gradient( 270deg, #322c46 0%, #5d5085 100%);
+}
+.block.main-image .inner-bloc .line:last-child::before {
+    background-image: none!important;
+}
+
+.block.main-image .inner-bloc .line:last-child::after {
+    background-image: none!important;
+}
+
+.gradient.gradient-red::before {
+    background-image: linear-gradient( 135deg, #e62117 0%, #ff2c8d 100%);
+}
+
+.gradient.gradient-red::after {
+    background-image: linear-gradient( 270deg, #e62117 0%, #ff2c8d 100%);
+}
+@keyframes gradient {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes gradient {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-moz-keyframes gradient {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* Le reste des valeurs CSS sont désormait dynamiques dans le fichiers header.php */
