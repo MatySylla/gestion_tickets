@@ -3,12 +3,14 @@ class Etudiant {
   final String email;
   final String nom;
   final String prenom;
+  late final String? photoUrl;
 
   Etudiant({
     required this.id,
     required this.email,
     required this.nom,
     required this.prenom,
+    this.photoUrl,
   });
 
   factory Etudiant.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class Etudiant {
       email: json['email'] ?? '',
       nom: json['nom'] ?? '',
       prenom: json['prenom'] ?? '',
+      photoUrl: json['photoUrl'],
     );
   }
 
@@ -26,6 +29,7 @@ class Etudiant {
       'email': email,
       'nom': nom,
       'prenom': prenom,
+      if (photoUrl != null) 'photoUrl': photoUrl,
     };
   }
 }
