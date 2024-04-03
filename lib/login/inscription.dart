@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gestion_tickets/main.dart';
@@ -11,6 +13,7 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
 
+  // ignore: use_key_in_widget_constructors
   SignUpPage({Key? key});
 
   Future<void> _signUpWithEmailAndPassword(BuildContext context) async {
@@ -39,10 +42,11 @@ class SignUpPage extends StatelessWidget {
 
       // Une fois l'utilisateur inscrit, redirigez-le vers la page principale
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) =>  MyApp()),
+        MaterialPageRoute(builder: (context) =>  const MyApp()),
       );
+    
     } catch (e) {
-      // ignore: use_build_context_synchronously
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erreur lors de l\'inscription : $e')),
       );

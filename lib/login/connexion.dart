@@ -10,6 +10,7 @@ class Connexion extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // ignore: use_key_in_widget_constructors
   Connexion({Key? key});
 
   Future<void> _signInWithEmailAndPassword(BuildContext context) async {
@@ -37,6 +38,7 @@ class Connexion extends StatelessWidget {
       }
     } catch (e) {
       // En cas d'erreur d'authentification
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erreur d\'authentification : $e')),
       );
