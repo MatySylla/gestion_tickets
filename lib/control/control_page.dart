@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:gestion_tickets/login/connexion.dart';
 import 'package:gestion_tickets/screens/EtudiantHome.dart';
 
 class ControlePage extends StatelessWidget {
