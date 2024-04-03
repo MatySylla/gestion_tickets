@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/login/connexion.dart';
 
 class HomePage extends StatelessWidget {

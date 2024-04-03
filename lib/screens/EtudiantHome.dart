@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/compositions/header.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +13,7 @@ class EtudiantHomePage extends StatefulWidget {
 }
 
 class _EtudiantHomePageState extends State<EtudiantHomePage> {
-  File? _image;
+  NetworkImage? _image;
    NetworkImage? _coverPhoto;
 
   Future<void> _getImage() async {
@@ -24,13 +23,11 @@ class _EtudiantHomePageState extends State<EtudiantHomePage> {
 
    
 
-    setState(() {
-      if (pickedImage != null) {
-        _image = File(pickedImage.path);
-      } else {
-        print('Aucune image sélectionnée.');
-      }
-    });
+    if (pickedImage != null) {
+      setState(() {
+       _image = NetworkImage(pickedImage.path);
+      });
+    }
   }
    Future<void> _pickCoverPhoto() async {
     final picker = ImagePicker();
@@ -75,7 +72,7 @@ class _EtudiantHomePageState extends State<EtudiantHomePage> {
             padding: const EdgeInsets.all(16.0),
             
                   child: Center( 
-                    child: Container(
+                    child: SizedBox(
                       height: 300,
                       
                         child: Column(
@@ -85,9 +82,14 @@ class _EtudiantHomePageState extends State<EtudiantHomePage> {
                             CircleAvatar(
                                 backgroundColor: Colors.grey[300], 
                                 radius: 80, 
-                                foregroundImage: _image != null ? FileImage(_image!) : null, // Image affichée à l'intérieur de l'avatar
-                                child: _image == null ? 
-                                IconButton( 
+                               child: _image != null
+                                  ? Image.network(
+                                      _image!.url,
+                                      width: double.infinity,
+                                      height: 200, // Hauteur de la photo de couverture
+                                      fit: BoxFit.cover,
+                                    ): 
+                                    IconButton( 
                                   icon: const Icon(Icons.add_a_photo),
                                   onPressed: () {
                                     showDialog(
@@ -110,7 +112,7 @@ class _EtudiantHomePageState extends State<EtudiantHomePage> {
                                   },
 
                                   tooltip: 'Choisir une photo de profil',
-                                ) : null,
+                                )  ,
                             ),
                             
                             const SizedBox(height: 16),
