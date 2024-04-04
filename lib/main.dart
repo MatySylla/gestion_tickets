@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:gestion_tickets/screens/EtudiantHome.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           builder: (context, userModel, _) {
             // Utilisez Consumer pour écouter les changements dans le modèle de données de l'utilisateur
             // et afficher la page d'accueil si l'utilisateur est connecté, sinon affichez la page de connexion
-            return userModel.etudiant != null ? const EtudiantHomePage() : HomePage();
+            return userModel.etudiant != null ?   const MainScreen(): HomePage();
           },
         ),
         theme: ThemeData(
