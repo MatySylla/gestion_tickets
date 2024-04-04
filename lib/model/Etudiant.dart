@@ -4,6 +4,7 @@ class Etudiant {
   final String nom;
   final String prenom;
   late final String? photoUrl;
+  final String? photoCouvertureUrl;
 
   Etudiant({
     required this.id,
@@ -11,6 +12,7 @@ class Etudiant {
     required this.nom,
     required this.prenom,
     this.photoUrl,
+    this.photoCouvertureUrl,
   });
 
   factory Etudiant.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Etudiant {
       nom: json['nom'] ?? '',
       prenom: json['prenom'] ?? '',
       photoUrl: json['photoUrl'],
+       photoCouvertureUrl: json['photoCouvertureUrl']
     );
   }
 
@@ -30,6 +33,7 @@ class Etudiant {
       'nom': nom,
       'prenom': prenom,
       if (photoUrl != null) 'photoUrl': photoUrl,
+      if (photoCouvertureUrl != null) 'photoCouvertureUrl': photoCouvertureUrl,
     };
   }
 }
