@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/compositions/header.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 
 class EtudiantHomePage extends StatefulWidget {
   const EtudiantHomePage({Key? key}) : super(key: key);
@@ -17,28 +22,79 @@ class _EtudiantHomePageState extends State<EtudiantHomePage> {
    NetworkImage? _coverPhoto;
 
   Future<void> _getImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+  final picker = ImagePicker();
+  final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
+  if (pickedImage != null) {
+    try {
+      // Référence au bucket Firebase Storage où les images seront stockées
+      final storageReference = FirebaseStorage.instance.ref().child('path/to/file');
 
-   
+      // Téléversement de l'image sur Firebase Storage
+      final uploadTask = storageReference.putFile(File(pickedImage.path));
 
-    if (pickedImage != null) {
+      // Récupération de l'URL téléchargeable de l'image
+      final imageUrl = await (await uploadTask).ref.getDownloadURL();
+
       setState(() {
-       _image = NetworkImage(pickedImage.path);
+        _image = NetworkImage(imageUrl);
       });
+
+      // Enregistrement de l'URL de l'image dans les informations de l'étudiant
+      final etudiantModel = Provider.of<EtudiantModel>(context, listen: false);
+      final etudiant = etudiantModel.etudiant;
+      if (etudiant != null) {
+        await FirebaseFirestore.instance
+            .collection('etudiant')
+            .doc(etudiant.id)
+            .update({'photoProfilUrl': imageUrl});
+
+        // Actualisation des informations de l'étudiant dans le modèle
+        etudiantModel.fetchEtudiantDataFromFirestore(etudiant.id);
+      }
+    } catch (error) {
+      print('Erreur lors du téléversement de l\'image : $error');
     }
   }
-   Future<void> _pickCoverPhoto() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+}
 
-    if (pickedImage != null) {
+Future<void> _pickCoverPhoto() async {
+  final picker = ImagePicker();
+  final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+  if (pickedImage != null) {
+    try {
+      // Référence au bucket Firebase Storage où les images seront stockées
+      final storageReference = FirebaseStorage.instance.ref().child('images');
+
+      // Téléversement de l'image sur Firebase Storage
+      final uploadTask = storageReference.putFile(File(pickedImage.path));
+
+      // Récupération de l'URL téléchargeable de l'image
+      final imageUrl = await (await uploadTask).ref.getDownloadURL();
+
       setState(() {
-        _coverPhoto = NetworkImage(pickedImage.path);
+        _coverPhoto = NetworkImage(imageUrl);
       });
+
+      // Enregistrement de l'URL de l'image dans les informations de l'étudiant
+      final etudiantModel = Provider.of<EtudiantModel>(context, listen: false);
+      final etudiant = etudiantModel.etudiant;
+      if (etudiant != null) {
+        await FirebaseFirestore.instance
+            .collection('etudiant')
+            .doc(etudiant.id)
+            .update({'photoCouvertureUrl': imageUrl});
+
+        // Actualisation des informations de l'étudiant dans le modèle
+        etudiantModel.fetchEtudiantDataFromFirestore(etudiant.id);
+      }
+    } catch (error) {
+      print('Erreur lors du téléversement de l\'image : $error');
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
