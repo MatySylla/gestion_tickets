@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/screens/EtudiantHome.dart';
+import 'package:gestion_tickets/widgets/menu/menu.dart';
+import 'package:gestion_tickets/widgets/paiement/PaymentView.dart';
+import 'package:gestion_tickets/widgets/reservation/reserveTickets.dart';
+import 'package:gestion_tickets/widgets/solde/balanceView.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -62,75 +66,6 @@ class _MainScreenState extends State<MainScreen> {
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class BalanceView extends StatelessWidget {
-  const BalanceView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Solde de tickets : 10',
-        style: TextStyle(fontSize: 24.0),
-      ),
-    );
-  }
-}
-
-class MenuView extends StatelessWidget {
-  const MenuView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: const <Widget>[
-        ListTile(
-          title: Text('Menu du jour 1'),
-          subtitle: Text('Description du menu'),
-          trailing: Text('Prix : \$5'),
-        ),
-        ListTile(
-          title: Text('Menu du jour 2'),
-          subtitle: Text('Description du menu'),
-          trailing: Text('Prix : \$6'),
-        ),
-        // Ajoutez plus d'éléments de menu ici...
-      ],
-    );
-  }
-}
-
-class ReservationView extends StatelessWidget {
-  const ReservationView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          // Logique pour réserver un repas
-        },
-        child: const Text('Réserver un repas'),
-      ),
-    );
-  }
-}
-
-class PaymentView extends StatelessWidget {
-  const PaymentView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          // Logique pour effectuer un paiement
-        },
-        child: const Text('Effectuer un paiement'),
       ),
     );
   }
