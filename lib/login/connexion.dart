@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gestion_tickets/compositions/messageErreur.dart';
+import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/login/inscription.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:gestion_tickets/screens/EtudiantHome.dart';
@@ -33,14 +35,13 @@ class Connexion extends StatelessWidget {
         // Rediriger vers la page d'accueil de l'étudiant
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const EtudiantHomePage(),
+          builder: (context) =>  const MainScreen(),
         ));
       }
     } catch (e) {
       // En cas d'erreur d'authentification
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur d\'authentification : $e')),
+          showErrorDialog(context, 'Erreur d\'authentification : $e'
       );
     }
   }
