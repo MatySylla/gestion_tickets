@@ -61,6 +61,10 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.payment),
             label: 'Paiement',
           ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.sell),
+            label: 'Achat',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
