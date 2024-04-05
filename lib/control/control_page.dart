@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/screens/EtudiantHome.dart';
-import 'package:gestion_tickets/widgets/achat.dart';
 import 'package:gestion_tickets/widgets/menu/menu.dart';
 import 'package:gestion_tickets/widgets/paiement/PaymentView.dart';
 import 'package:gestion_tickets/widgets/reservation/reserveTickets.dart';
@@ -17,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const EtudiantHomePage(),
+    const AccueilPage(),
     const BalanceView(),
     const MenuView(),
     const ReservationView(),
