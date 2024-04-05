@@ -4,7 +4,6 @@ import 'package:gestion_tickets/compositions/messageErreur.dart';
 import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/login/inscription.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
-import 'package:gestion_tickets/screens/EtudiantHome.dart';
 import 'package:provider/provider.dart'; // Importez la page d'inscription
 
 // ignore: camel_case_types
