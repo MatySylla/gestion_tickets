@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/screens/accueil.dart';
-import 'package:gestion_tickets/widgets/achat.dart';
+import 'package:gestion_tickets/widgets/solde/achat.dart';
 import 'package:gestion_tickets/widgets/menu/menu.dart';
 import 'package:gestion_tickets/widgets/paiement/PaymentView.dart';
 import 'package:gestion_tickets/widgets/reservation/reserveTickets.dart';
-import 'package:gestion_tickets/widgets/solde/balanceView.dart';
+import 'package:gestion_tickets/widgets/solde/pageSolde.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const AccueilPage(),
-    const BalanceView(),
+    PageSoldeTickets(),
     const MenuView(),
     const ReservationView(),
     const PaymentView(),
