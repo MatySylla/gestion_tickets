@@ -1,8 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/model/Etudiant.dart';
+
 
 class EtudiantModel extends ChangeNotifier {
   Etudiant? _etudiant;
@@ -22,14 +21,13 @@ class EtudiantModel extends ChangeNotifier {
       // Vérifier si le document existe
       if (documentSnapshot.exists) {
         // Convertir les données Firestore en un objet Etudiant en utilisant la méthode fromJson
-        Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
         Etudiant etudiant = Etudiant.fromJson(data);
 
         // Mettre à jour l'étudiant dans le modèle
         _etudiant = etudiant;
-        if (data.containsKey('imageUrl')) {
-          _etudiant!.photoUrl = data['imageUrl']; // Ajouter l'URL de l'image
-        }
+
         notifyListeners(); // Notifie les écouteurs du changement
       } else {
         // Le document n'existe pas, vous pouvez gérer cette situation comme nécessaire
@@ -37,7 +35,54 @@ class EtudiantModel extends ChangeNotifier {
       }
     } catch (error) {
       // Gérer les erreurs de récupération des données depuis Firestore
-      print('Erreur lors de la récupération des données de l\'utilisateur : $error');
+      print(
+          'Erreur lors de la récupération des données de l\'utilisateur : $error');
+    }
+  }
+
+  Future<num?> fetchSoldeTicketsRepasFromFirestore(String userId) async {
+    try {
+      // Effectuer une requête à Firestore pour obtenir les tickets repas de l'utilisateur
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('tickets')
+          .where('user_id', isEqualTo: userId)
+          .get();
+
+      // Calculer le total des tickets repas de l'utilisateur
+      num totalTicketsRepas = 0;
+      querySnapshot.docs.forEach((doc) {
+        totalTicketsRepas += doc['nombreTicketsRepas'] ?? 0;
+      });
+
+      return totalTicketsRepas;
+    } catch (error) {
+      // Gérer les erreurs de récupération des données depuis Firestore
+      print(
+          'Erreur lors de la récupération du solde des tickets repas : $error');
+      return null;
+    }
+  }
+
+  Future<num?> fetchSoldeTicketsPetitDejFromFirestore(String userId) async {
+    try {
+      // Effectuer une requête à Firestore pour obtenir les tickets petit déjeuner de l'utilisateur
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('tickets')
+          .where('user_id', isEqualTo: userId)
+          .get();
+
+      // Calculer le total des tickets petit déjeuner de l'utilisateur
+      num totalTicketsPetitDej = 0;
+      querySnapshot.docs.forEach((doc) {
+        totalTicketsPetitDej += (doc['nombreTicketsPetitDej'] ?? 0);
+      });
+
+      return totalTicketsPetitDej;
+    } catch (error) {
+      // Gérer les erreurs de récupération des données depuis Firestore
+      print(
+          'Erreur lors de la récupération du solde des tickets petit déjeuner : $error');
+      return null;
     }
   }
 }
