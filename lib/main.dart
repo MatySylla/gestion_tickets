@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
-import 'package:gestion_tickets/screens/EtudiantHome.dart';
 import 'package:provider/provider.dart';
 import 'package:gestion_tickets/firebase_options.dart';
 import 'package:gestion_tickets/screens/home_page.dart';
