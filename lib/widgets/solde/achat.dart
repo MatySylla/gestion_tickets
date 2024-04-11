@@ -144,7 +144,7 @@ class _PageAchatTicketsState extends State<PageAchatTickets> {
             ),
             const SizedBox(height: 20.0),
             Text(
-              'Prix total: $_prixTotal €',
+              'Prix total: $_prixTotal fcf',
               style: const TextStyle(fontSize: 20.0),
             ),
             const SizedBox(height: 20.0),

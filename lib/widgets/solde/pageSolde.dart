@@ -15,13 +15,13 @@ class PageSoldeTickets extends StatelessWidget {
           builder: (context, etudiantModel, _) {
             if (etudiantModel.etudiant != null) {
               // Récupérer les tickets repas et petit déjeuner de l'étudiant depuis le modèle
-              Future<int?> nombreTicketsRepas = etudiantModel.fetchSoldeTicketsRepasFromFirestore(etudiantModel.etudiant!.id);
-              Future<int?> nombreTicketsPetitDej = etudiantModel.fetchSoldeTicketsPetitDejFromFirestore(etudiantModel.etudiant!.id);
+              Future<num?> nombreTicketsRepas = etudiantModel.fetchSoldeTicketsRepasFromFirestore(etudiantModel.etudiant!.id);
+              Future<num?> nombreTicketsPetitDej = etudiantModel.fetchSoldeTicketsPetitDejFromFirestore(etudiantModel.etudiant!.id);
 
-              return FutureBuilder<int?>(
+              return FutureBuilder<num?>(
                 future: nombreTicketsRepas,
                 builder: (context, snapshotRepas) {
-                  return FutureBuilder<int?>(
+                  return FutureBuilder<num?>(
                     future: nombreTicketsPetitDej,
                     builder: (context, snapshotPetitDej) {
                       if (snapshotRepas.connectionState == ConnectionState.waiting ||
@@ -33,7 +33,7 @@ class PageSoldeTickets extends StatelessWidget {
                         return Center(child: Text('Erreur de chargement des données'));
                       } else {
                         // Calculer le solde total des tickets
-                        int soldeTotalTickets = (snapshotRepas.data ?? 0) + (snapshotPetitDej.data ?? 0);
+                        num soldeTotalTickets = (snapshotRepas.data ?? 0) + (snapshotPetitDej.data ?? 0);
 
                         // Afficher le solde des tickets dans l'interface utilisateur
                         return Column(
