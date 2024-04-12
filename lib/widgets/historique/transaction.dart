@@ -1,7 +1,7 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:gestion_tickets/widgets/historique/paymentBloc.dart';
+
 
 
 class historiqueTransaction extends StatefulWidget {
@@ -12,7 +12,7 @@ class historiqueTransaction extends StatefulWidget {
 }
 
 class _historiqueTransactionState extends State<historiqueTransaction> {
-  final PaymentBloc _paymentBloc = PaymentBloc();
+  
   String _selectedPaymentMethod = '';
 
   @override
@@ -52,7 +52,7 @@ class _historiqueTransactionState extends State<historiqueTransaction> {
           ElevatedButton(
             onPressed: () {
               if (_selectedPaymentMethod.isNotEmpty) {
-                _paymentBloc.initiatePayment(_selectedPaymentMethod);
+               
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Veuillez sélectionner un mode de paiement.'),
@@ -68,7 +68,7 @@ class _historiqueTransactionState extends State<historiqueTransaction> {
 
   @override
   void dispose() {
-    _paymentBloc.dispose();
+   
     super.dispose();
   }
 }
