@@ -56,7 +56,7 @@ class SignUpPage extends StatelessWidget {
     );
 
     // Enregistrer les informations dans la base de données, par exemple Firestore
-    // Ici, nous supposons que vous avez une collection "etudiant" dans Firestore
+  
     await FirebaseFirestore.instance.collection('etudiant').doc(userId).set(
           nouvelEtudiant.toJson(),
         );
