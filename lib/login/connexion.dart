@@ -70,93 +70,95 @@ class _ConnexionState extends State<Connexion> {
       backgroundColor: Colors.white,
       body: Form(
         key: _formKey,
-        child: Column(
-          children: [
-            const SizedBox(height: 50),
-            Image.asset('assets/login.png'),
-            const Text(
-              "Bienvenue",
-              style: TextStyle(
-                color: Color.fromARGB(255, 183, 179, 179),
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 25),
-            TextFormField(
-              controller: _emailController,
-              style: const TextStyle(fontSize: 15),
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              Image.asset('assets/login.png'),
+              const Text(
+                "Bienvenue",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 183, 179, 179),
+                  fontSize: 16,
                 ),
               ),
-              validator: _validateEmail,
-            ),
-            const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _passwordController,
-              style: const TextStyle(fontSize: 15),
-              decoration: InputDecoration(
-                labelText: 'Mot de passe',
-                suffixIcon: InkWell(
-                  onTap: () {
-                    setState(() {
-                       _obscureTextPswd = !_obscureTextPswd;
-                    });
-                  },
-                  child: Icon(
-                    _obscureTextPswd ? Icons.visibility : Icons.visibility_off,
+              const SizedBox(height: 25),
+              TextFormField(
+                controller: _emailController,
+                style: const TextStyle(fontSize: 15),
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
                   ),
                 ),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50),
-                  ),
-                ),
+                validator: _validateEmail,
               ),
-              obscureText: _obscureTextPswd,
-              validator: _validatePassword,
-            ),
-            const SizedBox(height: 16.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                  TextButton(
-                    onPressed: () {
-                      // Naviguer vers la page de réinitialisation de mot de passe
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ResetPasswordPage()),
-                      );
+              const SizedBox(height: 16.0),
+              TextFormField(
+                controller: _passwordController,
+                style: const TextStyle(fontSize: 15),
+                decoration: InputDecoration(
+                  labelText: 'Mot de passe',
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      setState(() {
+                        _obscureTextPswd = !_obscureTextPswd;
+                      });
                     },
-                    child: const Text('Mot de passe oublié ?'),
+                    child: Icon(
+                      _obscureTextPswd ? Icons.visibility : Icons.visibility_off,
+                    ),
                   ),
-               ],
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()){
-                  _signInWithEmailAndPassword(context);
-                }
-              },
-              child: const Text('Se connecter'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Naviguer vers la page d'inscription
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUpPage()),
-                );
-              },
-              child: const Text('Créer un compte'),
-            ),
-          ],
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                  ),
+                ),
+                obscureText: _obscureTextPswd,
+                validator: _validatePassword,
+              ),
+              const SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                    TextButton(
+                      onPressed: () {
+                        // Naviguer vers la page de réinitialisation de mot de passe
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ResetPasswordPage()),
+                        );
+                      },
+                      child: const Text('Mot de passe oublié ?'),
+                    ),
+                ],
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()){
+                    _signInWithEmailAndPassword(context);
+                  }
+                },
+                child: const Text('Se connecter'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Naviguer vers la page d'inscription
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
+                },
+                child: const Text('Créer un compte'),
+              ),
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }
