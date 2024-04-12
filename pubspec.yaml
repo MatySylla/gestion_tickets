@@ -68,6 +68,12 @@ flutter:
     - assets/gere.jpeg
     - assets/num.jpeg
     - assets/login.png
+    - assets/ecobank.jpg
+    - assets/fm.png
+    - assets/om.jpeg
+    - assets/sesapay.jpg
+    - assets/wave.jpeg
+    - assets/payer.jpeg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
