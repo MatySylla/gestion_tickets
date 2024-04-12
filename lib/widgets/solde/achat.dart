@@ -68,7 +68,7 @@ class _PageAchatTicketsState extends State<PageAchatTickets> {
   String userId = FirebaseAuth.instance.currentUser!.uid; // Récupérer l'ID de l'utilisateur connecté
 
   FirebaseFirestore.instance.collection('tickets').add({
-    'user_id': userId, // Ajouter l'ID de l'utilisateur connecté
+    'user_id': userId, 
     'nombreTicketsRepas': _nombreTicketsRepas,
     'nombreTicketsPetitDej': _nombreTicketsPetitDej,
     'prix_total': _prixTotal,
