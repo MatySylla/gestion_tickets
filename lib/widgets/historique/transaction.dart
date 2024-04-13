@@ -1,74 +1,72 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-
-class historiqueTransaction extends StatefulWidget {
-  const historiqueTransaction({Key? key}) : super(key: key);
+class HistoriqueTransactionsPage extends StatefulWidget {
+  const HistoriqueTransactionsPage({Key? key}) : super(key: key);
 
   @override
-  _historiqueTransactionState createState() => _historiqueTransactionState();
+  _HistoriqueTransactionsPageState createState() => _HistoriqueTransactionsPageState();
 }
 
-class _historiqueTransactionState extends State<historiqueTransaction> {
-  
-  String _selectedPaymentMethod = '';
+class _HistoriqueTransactionsPageState extends State<HistoriqueTransactionsPage> {
+  late String _userId;
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Choisissez le mode de paiement :',
-            style: TextStyle(fontSize: 18),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedPaymentMethod = 'Visa'; // Modifier selon votre logique
-                  });
-                },
-                icon: const Icon(Icons.credit_card), // Icône pour Visa
-                color: _selectedPaymentMethod == 'Visa' ? Colors.blue : Colors.grey,
-              ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedPaymentMethod = 'PayPal'; // Modifier selon votre logique
-                  });
-                },
-                icon: const Icon(Icons.payment), // Icône pour PayPal
-                color: _selectedPaymentMethod == 'PayPal' ? Colors.blue : Colors.grey,
-              ),
-              // Ajoutez d'autres icônes pour les modes de paiement supplémentaires selon vos besoins
-            ],
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (_selectedPaymentMethod.isNotEmpty) {
-               
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Veuillez sélectionner un mode de paiement.'),
-                ));
-              }
-            },
-            child: const Text('Effectuer le paiement'),
-          ),
-        ],
-      ),
-    );
+  void initState() {
+    super.initState();
+    _userId = FirebaseAuth.instance.currentUser!.uid; // Obtenez l'ID de l'utilisateur connecté
   }
 
   @override
-  void dispose() {
-   
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Historique des Transactions'),
+      ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('tickets')
+            .where('user_id', isEqualTo: _userId) // Filtrer les transactions par ID utilisateur
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Erreur de chargement des données'));
+          } else {
+            final transactions = snapshot.data!.docs;
+            if (transactions.isEmpty) {
+              return Center(child: Text('Aucune transaction trouvée.'));
+            }
+            return ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (context, index) {
+                final transaction = transactions[index];
+                final userId = transaction['user_id'];
+                final nombreTicketsRepas = transaction['nombreTicketsRepas'];
+                final nombreTicketsPetitDej = transaction['nombreTicketsPetitDej'];
+                final prixTotal = transaction['prix_total'];
+                final timestamp = transaction['timestamp'];
+
+                // Construisez l'interface utilisateur pour afficher les détails de chaque transaction
+                return ListTile(
+                  title: Text('Utilisateur: $userId'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Tickets Repas: $nombreTicketsRepas'),
+                      Text('Tickets Petit Déj: $nombreTicketsPetitDej'),
+                      Text('Prix Total: $prixTotal'),
+                      Text('Date: ${timestamp.toDate()}'),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        },
+      ),
+    );
   }
 }
