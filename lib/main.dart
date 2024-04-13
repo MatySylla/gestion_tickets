@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => EtudiantModel(), // Créez une instance de votre modèle de données pour l'utilisateur
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Consumer<EtudiantModel>(
           builder: (context, userModel, _) {
             // Utilisez Consumer pour écouter les changements dans le modèle de données de l'utilisateur
