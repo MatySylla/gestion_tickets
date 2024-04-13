@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     PageSoldeTickets(),
     const MenuView(),
     const ReservationView(),
-    const historiqueTransaction(),
+    const  HistoriqueTransactionsPage (),
     const PageAchatTickets(),
   
   ];
