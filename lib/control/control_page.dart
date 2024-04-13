@@ -36,7 +36,70 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        elevation: 0,
         title: const Text('Gestion des tickets'),
+        leading: IconButton(
+          onPressed: () {
+            // Action lorsque l'utilisateur appuie sur l'icône de menu
+          },
+          icon: const Icon(Icons.menu, color: Colors.white),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Action lorsque l'utilisateur appuie sur l'icône de recherche
+            },
+            icon: const Icon(Icons.search, color: Colors.white),
+          ),
+          IconButton(
+            onPressed: () {
+              // Action lorsque l'utilisateur appuie sur l'icône de notification
+            },
+            icon: const Icon(Icons.notifications, color: Colors.white),
+          ),
+           PopupMenuButton<String>(
+      onSelected: (String value) {
+        // Logique pour chaque élément sélectionné dans le menu déroulant
+        switch (value) {
+          case 'Profil':
+            print('Profil utilisateur');
+            break;
+          case 'Paramètres':
+            print('Paramètres utilisateur');
+            break;
+          case 'Déconnexion':
+            print('Déconnexion utilisateur');
+            break;
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        const PopupMenuItem<String>(
+          value: 'Profil',
+         child: ListTile(
+            leading: Icon(Icons.account_circle, color: Colors.purple), // Icône Profil en mauve
+            title: Text('Profil'),
+          ),
+        ),
+        const PopupMenuItem<String>(
+          value: 'Paramètres',
+         child: ListTile(
+            leading: Icon(Icons.settings, color: Colors.purple), // Icône Paramètres en mauve
+            title: Text('Paramètres'),
+          )
+        ),
+        const PopupMenuItem<String>(
+          value: 'Déconnexion',
+          child: ListTile(
+            leading: Icon(Icons.logout, color: Colors.purple), // Icône Déconnexion en mauve
+            title: Text('Déconnexion'),
+          ),
+        ),
+      ],
+      icon: const Icon(Icons.account_circle, color: Colors.white), // Icône en blanc
+    ),
+        ],
+        // Ajoutez d'autres éléments d'en-tête selon vos besoins     
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
