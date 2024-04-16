@@ -8,6 +8,19 @@ class AccueilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 240, 222, 243),
+        title: const Text('Accueil',
+          style: TextStyle(color: Colors.deepPurple, // Couleur du texte blanc
+           ),
+       ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Consumer<EtudiantModel>(
         builder: (context, etudiantModel, child) {
           return Column(
