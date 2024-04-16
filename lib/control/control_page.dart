@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gestion_tickets/control/profil.dart';
 import 'package:gestion_tickets/screens/accueil.dart';
+import 'package:gestion_tickets/screens/home_page.dart';
 import 'package:gestion_tickets/widgets/solde/achat.dart';
 import 'package:gestion_tickets/widgets/menu/menu.dart';
 import 'package:gestion_tickets/widgets/historique/transaction.dart';
@@ -63,13 +66,20 @@ class _MainScreenState extends State<MainScreen> {
         // Logique pour chaque élément sélectionné dans le menu déroulant
         switch (value) {
           case 'Profil':
-            print('Profil utilisateur');
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfilePage()),
+          );
             break;
           case 'Paramètres':
             print('Paramètres utilisateur');
             break;
           case 'Déconnexion':
-            print('Déconnexion utilisateur');
+            // Déconnexion de l'utilisateur et retour à la page d'accueil
+            FirebaseAuth.instance.signOut();
+            Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
             break;
         }
       },
