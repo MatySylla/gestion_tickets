@@ -1,62 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
+void main() {
+  runApp(MyApp());
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  late User _user;
+class Transaction {
+  final String title;
+  final String date;
+  final double amount;
 
-  @override
-  void initState() {
-    super.initState();
-    _user = FirebaseAuth.instance.currentUser!;
-  }
+  Transaction({required this.title, required this.date, required this.amount});
+}
+
+class MyApp extends StatelessWidget {
+  final List<Transaction> transactions = [
+    Transaction(title: 'Achat', date: '12/04/2024', amount: -50.0),
+    Transaction(title: 'Dépôt', date: '10/04/2024', amount: 200.0),
+    Transaction(title: 'Retrait', date: '08/04/2024', amount: -30.0),
+    // Ajoutez davantage de transactions ici
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        elevation: 0,
-        title: const Text('Profil'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(_user.photoURL ?? ''),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              _user.displayName ?? 'Nom Utilisateur',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Historique des Transactions'),
+        ),
+        body: ListView.builder(
+          itemCount: transactions.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                leading: transactions[index].amount < 0
+                    ? Icon(Icons.money_off, color: Colors.red)
+                    : Icon(Icons.attach_money, color: Colors.green),
+                title: Text(transactions[index].title),
+                subtitle: Text(transactions[index].date),
+                trailing: Text(
+                  '${transactions[index].amount.toString()} €',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: transactions[index].amount < 0
+                        ? Colors.red
+                        : Colors.green,
+                  ),
+                ),
               ),
-            ),
-            Text(
-              _user.email ?? 'Email Utilisateur',
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Action lorsque l'utilisateur appuie sur le bouton de modification de profil
-              },
-              child: const Text('Modifier Profil'),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

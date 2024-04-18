@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
           case 'Profil':
             Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()),
+            MaterialPageRoute(builder: (context) =>  MyApp()),
           );
             break;
           case 'Paramètres':
