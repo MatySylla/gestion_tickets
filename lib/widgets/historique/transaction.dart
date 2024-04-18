@@ -6,16 +6,18 @@ class HistoriqueTransactionsPage extends StatefulWidget {
   const HistoriqueTransactionsPage({Key? key}) : super(key: key);
 
   @override
-  _HistoriqueTransactionsPageState createState() => _HistoriqueTransactionsPageState();
+  _HistoriqueTransactionsPageState createState() =>
+      _HistoriqueTransactionsPageState();
 }
 
-class _HistoriqueTransactionsPageState extends State<HistoriqueTransactionsPage> {
+class _HistoriqueTransactionsPageState
+    extends State<HistoriqueTransactionsPage> {
   late String _userId;
 
   @override
   void initState() {
     super.initState();
-    _userId = FirebaseAuth.instance.currentUser!.uid; // Obtenez l'ID de l'utilisateur connecté
+    _userId = FirebaseAuth.instance.currentUser!.uid;
   }
 
   @override
@@ -27,7 +29,7 @@ class _HistoriqueTransactionsPageState extends State<HistoriqueTransactionsPage>
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('tickets')
-            .where('user_id', isEqualTo: _userId) // Filtrer les transactions par ID utilisateur
+            .where('user_id', isEqualTo: _userId)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -43,23 +45,30 @@ class _HistoriqueTransactionsPageState extends State<HistoriqueTransactionsPage>
               itemCount: transactions.length,
               itemBuilder: (context, index) {
                 final transaction = transactions[index];
-                final userId = transaction['user_id'];
                 final nombreTicketsRepas = transaction['nombreTicketsRepas'];
-                final nombreTicketsPetitDej = transaction['nombreTicketsPetitDej'];
+                final nombreTicketsPetitDej =
+                    transaction['nombreTicketsPetitDej'];
                 final prixTotal = transaction['prix_total'];
                 final timestamp = transaction['timestamp'];
 
-                // Construisez l'interface utilisateur pour afficher les détails de chaque transaction
-                return ListTile(
-                  title: Text('Utilisateur: $userId'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Tickets Repas: $nombreTicketsRepas'),
-                      Text('Tickets Petit Déj: $nombreTicketsPetitDej'),
-                      Text('Prix Total: $prixTotal'),
-                      Text('Date: ${timestamp.toDate()}'),
-                    ],
+                return Card(
+                  child: ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Date: ${timestamp.toDate()}',style: const TextStyle(fontWeight: FontWeight.bold) ,),
+                        
+                        Text('$prixTotal FCFA'),
+                       
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Tickets Petit Déj: $nombreTicketsPetitDej'),
+                        Text('Tickets Repas: $nombreTicketsRepas'),
+                      ],
+                    ),
                   ),
                 );
               },
