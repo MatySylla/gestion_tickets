@@ -17,16 +17,16 @@ class PageSoldeTickets extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Informations Personnelles:',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   _buildPersonalInfo('Nom:', etudiantModel.etudiant!.prenom),
                   _buildPersonalInfo('Prénom:', etudiantModel.etudiant!.nom),
                   _buildPersonalInfo('Email:', etudiantModel.etudiant!.email),
                   SizedBox(height: 20),
-                  Text(
+                  const Text(
                     'Solde des Tickets',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
@@ -57,10 +57,7 @@ class PageSoldeTickets extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(height: 20),
-                                Text(
-                                  'Solde Total: $soldeTotalTickets',
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
+                                
                               ],
                             );
                           }
