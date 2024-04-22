@@ -6,7 +6,6 @@ import 'package:gestion_tickets/screens/home_page.dart';
 import 'package:gestion_tickets/widgets/solde/achat.dart';
 import 'package:gestion_tickets/widgets/menu/menu.dart';
 import 'package:gestion_tickets/widgets/historique/transaction.dart';
-import 'package:gestion_tickets/widgets/reservation/reserveTickets.dart';
 import 'package:gestion_tickets/widgets/solde/pageSolde.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -23,7 +22,6 @@ class _MainScreenState extends State<MainScreen> {
     const AccueilPage(),
     PageSoldeTickets(),
     const MenuView(),
-    const ReservationView(),
     const  HistoriqueTransactionsPage (),
     const PageAchatTickets(),
   
@@ -129,12 +127,8 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Menus',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Réservation',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment),
-            label: 'Paiement',
+            icon: Icon(Icons.history),
+            label: 'Historique',
           ),
            BottomNavigationBarItem(
             icon: Icon(Icons.sell),
