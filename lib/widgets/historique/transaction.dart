@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestion_tickets/compositions/header.dart';
 
 class HistoriqueTransactionsPage extends StatefulWidget {
   const HistoriqueTransactionsPage({Key? key}) : super(key: key);
@@ -23,8 +24,8 @@ class _HistoriqueTransactionsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Historique des Transactions'),
+      appBar: const MyAppBar(
+        
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
