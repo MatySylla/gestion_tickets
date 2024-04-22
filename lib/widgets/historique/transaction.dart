@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gestion_tickets/compositions/header.dart';
+
 
 class HistoriqueTransactionsPage extends StatefulWidget {
   const HistoriqueTransactionsPage({Key? key}) : super(key: key);
@@ -24,7 +24,8 @@ class _HistoriqueTransactionsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(
+      appBar: AppBar(
+        title: const Text('Historique des transactions'),
         
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -34,13 +35,13 @@ class _HistoriqueTransactionsPageState
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erreur de chargement des données'));
+            return const Center(child: Text('Erreur de chargement des données'));
           } else {
             final transactions = snapshot.data!.docs;
             if (transactions.isEmpty) {
-              return Center(child: Text('Aucune transaction trouvée.'));
+              return const Center(child: Text('Aucune transaction trouvée.'));
             }
             return ListView.builder(
               itemCount: transactions.length,
