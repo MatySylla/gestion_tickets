@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
+import 'package:gestion_tickets/widgets/historique/transaction.dart';
+import 'package:gestion_tickets/widgets/menu/menu.dart';
+import 'package:gestion_tickets/widgets/solde/achat.dart';
+import 'package:gestion_tickets/widgets/solde/pageSolde.dart';
 import 'package:provider/provider.dart';
 
 class AccueilPage extends StatelessWidget {
-  const AccueilPage({super.key});
+  const AccueilPage({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 240, 222, 243),
-        title: const Text('Accueil',
-          style: TextStyle(color: Colors.deepPurple, // Couleur du texte blanc
-           ),
-       ),
+      appBar: AppBar(
+        
+        title: const Text(
+          'Accueil',
+          style: TextStyle(
+            
+          ),
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back,color: Colors.deepPurple),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -31,7 +37,7 @@ class AccueilPage extends StatelessWidget {
                 color: Colors.white,
                 child: etudiantModel.etudiant != null
                     ? Text(
-                        'Bienvenue ${etudiantModel.etudiant!.prenom} ${etudiantModel.etudiant!.nom} !',
+                        'Bienvenue ${etudiantModel.etudiant!.nom} ${etudiantModel.etudiant!.prenom} !',
                         style: const TextStyle(
                           fontSize: 24.0,
                           color: Colors.deepPurple,
@@ -45,23 +51,103 @@ class AccueilPage extends StatelessWidget {
                         ),
                       ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Action à effectuer lors de l'appui sur le bouton "Réserver un ticket"
-                },
-                child: const Text('Réserver un ticket'),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                        leading: const Icon(Icons.event_note, color: Colors.deepPurple),
+                        title: const Text('Réserver repas'),
+                        onTap: () {
+                                     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (context) => const MenuView(),
+                                    ));
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                        leading: const Icon(Icons.shopping_cart, color: Colors.deepPurple),
+                        title: const Text('Acheter des tickets'),
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                 builder: (context) => const PageAchatTickets(),
+                              ));
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Action à effectuer lors de l'appui sur le bouton "Acheter des tickets"
-                },
-                child: Text('Acheter des tickets'),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                        leading: const Icon(Icons.account_balance_wallet, color: Colors.deepPurple),
+                        title: const Text('Consulter le solde'),
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                 builder: (context) => PageSoldeTickets(),
+                              ));
+                        },
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                        leading: const Icon(Icons.history, color: Colors.deepPurple),
+                        title: const Text('Voir historique'),
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                 builder: (context) => const HistoriqueTransactionsPage(),
+                              ));
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  // Action à effectuer lors de l'appui sur le bouton "Consulter le solde"
-                },
-                child: Text('Consulter le solde'),
+              const SizedBox(height: 10),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                  leading: const Icon(Icons.restaurant_menu,color: Colors.deepPurple),
+                  title: const Text('Menu'),
+                  onTap: () {
+                     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (context) => const MenuView(),
+                                    ));
+                  },
+                ),
               ),
               // Autres fonctionnalités ou sections de la page d'accueil
             ],
