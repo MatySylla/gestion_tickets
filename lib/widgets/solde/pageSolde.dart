@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +9,17 @@ class PageSoldeTickets extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Solde des Tickets'),
+
+        leading: IconButton(
+        onPressed: () {
+
+           Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const MainScreen(),
+          ));
+
+          },
+        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+      ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

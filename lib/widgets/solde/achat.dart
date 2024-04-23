@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestion_tickets/control/control_page.dart';
 
 class PageAchatTickets extends StatefulWidget {
   const PageAchatTickets({Key? key}) : super(key: key);
@@ -123,6 +124,17 @@ class _PageAchatTicketsState extends State<PageAchatTickets> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Achat Tickets'),
+
+        leading: IconButton(
+        onPressed: () {
+
+           Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const MainScreen(),
+          ));
+
+          },
+        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+      ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

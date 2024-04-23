@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:provider/provider.dart';
 
@@ -8,14 +9,30 @@ class MenuView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _buildDailyMenu(context, 'Menu du jour', 'Description du menu', 'assets/rizPoisson.jpg', context),
-          SizedBox(height: 20), // Espacement entre les sections
-          _buildWeeklyMenu(context),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Menu'),
+
+        leading: IconButton(
+        onPressed: () {
+
+           Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const MainScreen(),
+          ));
+
+          },
+        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+      ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildDailyMenu(context, 'Menu du jour', 'Description du menu', 'assets/rizPoisson.jpg', context),
+            SizedBox(height: 20), // Espacement entre les sections
+            _buildWeeklyMenu(context),
+          ],
+        ),
       ),
     );
   }
@@ -178,89 +195,89 @@ class MenuView extends StatelessWidget {
     );
   }
 
- void _showReservationDialog(BuildContext context) {
-  int quantity = 1; // Initial quantity
+  void _showReservationDialog(BuildContext context) {
+    int quantity = 1; // Initial quantity
 
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return StatefulBuilder(
-        builder: (context, setState) {
-          return AlertDialog(
-            title: Text('Réserver un repas'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Combien de repas voulez-vous réserver ?'),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {
-                        if (quantity > 1) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Réserver un repas'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Combien de repas voulez-vous réserver ?'),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          if (quantity > 1) {
+                            setState(() {
+                              quantity--;
+                            });
+                          }
+                        },
+                      ),
+                      Text('$quantity'),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
                           setState(() {
-                            quantity--;
+                            quantity++;
                           });
-                        }
-                      },
-                    ),
-                    Text('$quantity'),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        setState(() {
-                          quantity++;
-                        });
-                      },
-                    ),
-                  ],
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Annuler'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    // Débiter le nombre de repas réservés du solde de tickets repas de l'utilisateur
+                    await Provider.of<EtudiantModel>(context, listen: false)
+                        .debiterTickets(
+                      idEtudiant: FirebaseAuth.instance.currentUser!.uid,
+                      nombreTicketsRepas: quantity,
+                      nombreTicketsPetitDej: 0, // Nombre de petit déjeuner, à ajuster si nécessaire
+                    );
+
+                    // Mettre à jour le solde des tickets repas dans PageSoldeTickets
+                    await Provider.of<EtudiantModel>(context, listen: false)
+                        .fetchSoldeTicketsRepasFromFirestore(FirebaseAuth.instance.currentUser!.uid);
+
+                    // Afficher un message de confirmation
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Repas réservé avec succès'),
+                      ),
+                    );
+
+                    // Mettre à jour le solde des tickets repas dans PageSoldeTickets
+                    Provider.of<EtudiantModel>(context, listen: false)
+                        .fetchSoldeTicketsRepasFromFirestore(FirebaseAuth.instance.currentUser!.uid);
+
+                    Navigator.of(context).pop();
+                  },
+
+                  child: Text('Réserver'),
                 ),
               ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Annuler'),
-              ),
-              TextButton(
-                onPressed: () async {
-                  // Débiter le nombre de repas réservés du solde de tickets repas de l'utilisateur
-                  await Provider.of<EtudiantModel>(context, listen: false)
-                      .debiterTickets(
-                    idEtudiant: FirebaseAuth.instance.currentUser!.uid,
-                    nombreTicketsRepas: quantity,
-                    nombreTicketsPetitDej: 0, // Nombre de petit déjeuner, à ajuster si nécessaire
-                  );
-
-                  // Mettre à jour le solde des tickets repas dans PageSoldeTickets
-                  await Provider.of<EtudiantModel>(context, listen: false)
-                      .fetchSoldeTicketsRepasFromFirestore(FirebaseAuth.instance.currentUser!.uid);
-
-                  // Afficher un message de confirmation
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Repas réservé avec succès'),
-                    ),
-                  );
-
-                  // Mettre à jour le solde des tickets repas dans PageSoldeTickets
-                  Provider.of<EtudiantModel>(context, listen: false)
-                      .fetchSoldeTicketsRepasFromFirestore(FirebaseAuth.instance.currentUser!.uid);
-
-                  Navigator.of(context).pop();
-                },
-
-                child: Text('Réserver'),
-              ),
-            ],
-          );
-        },
-      );
-    },
-  );
-}
+            );
+          },
+        );
+      },
+    );
+  }
 }

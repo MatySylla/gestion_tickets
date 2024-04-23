@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestion_tickets/control/control_page.dart';
 
 
 class HistoriqueTransactionsPage extends StatefulWidget {
@@ -26,6 +27,17 @@ class _HistoriqueTransactionsPageState
     return Scaffold(
       appBar: AppBar(
         title: const Text('Historique des transactions'),
+
+        leading: IconButton(
+        onPressed: () {
+
+           Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const MainScreen(),
+          ));
+
+          },
+        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+      ),
         
       ),
       body: StreamBuilder<QuerySnapshot>(
