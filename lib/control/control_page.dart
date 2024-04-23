@@ -85,21 +85,21 @@ class _MainScreenState extends State<MainScreen> {
         const PopupMenuItem<String>(
           value: 'Profil',
          child: ListTile(
-            leading: Icon(Icons.account_circle, color: Colors.purple), // Icône Profil en mauve
+            leading: Icon(Icons.account_circle, color: Colors.deepPurple), // Icône Profil en mauve
             title: Text('Profil'),
           ),
         ),
         const PopupMenuItem<String>(
           value: 'Paramètres',
          child: ListTile(
-            leading: Icon(Icons.settings, color: Colors.purple), // Icône Paramètres en mauve
+            leading: Icon(Icons.settings, color: Colors.deepPurple), // Icône Paramètres en mauve
             title: Text('Paramètres'),
           )
         ),
         const PopupMenuItem<String>(
           value: 'Déconnexion',
           child: ListTile(
-            leading: Icon(Icons.logout, color: Colors.purple), // Icône Déconnexion en mauve
+            leading: Icon(Icons.logout, color: Colors.deepPurple), // Icône Déconnexion en mauve
             title: Text('Déconnexion'),
           ),
         ),
@@ -136,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.deepPurple,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
