@@ -11,38 +11,42 @@ class AccueilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        
-        title: const Text(
-          'Accueil',
-          style: TextStyle(
-            
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back,color: Colors.deepPurple),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/s1.jpg'), // Remplacez 'assets/background_image.jpg' par le chemin de votre image
+          fit: BoxFit.fill,
         ),
       ),
-      body: Consumer<EtudiantModel>(
-        builder: (context, etudiantModel, child) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(20.0),
-                color: Colors.white,
-                child: etudiantModel.etudiant != null
-                    ? Text(
-                        'Bienvenue ${etudiantModel.etudiant!.nom} ${etudiantModel.etudiant!.prenom} !',
-                        style: const TextStyle(
-                          fontSize: 24.0,
-                          color: Colors.deepPurple,
-                        ),
-                      )
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Accueil',
+            style: TextStyle(),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: Consumer<EtudiantModel>(
+          builder: (context, etudiantModel, child) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20.0),
+                  color: Colors.white.withOpacity(0.7), // Opacité ajoutée au fond blanc
+                  child: etudiantModel.etudiant != null
+                      ? Text(
+                          'Bienvenue ${etudiantModel.etudiant!.nom} ${etudiantModel.etudiant!.prenom} !',
+                          style: const TextStyle(
+                            fontSize: 24.0,
+                            color: Colors.deepPurple,
+                          ),
+                        )
                     : const Text(
                         'Chargement...',
                         style: TextStyle(
@@ -154,6 +158,7 @@ class AccueilPage extends StatelessWidget {
           );
         },
       ),
+    )
     );
   }
 }
