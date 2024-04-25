@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bienvenue chez E-CROUS',
+        title: const Text('Bienvenue chez E-CROUS!',
          style: TextStyle(fontWeight: FontWeight.bold), // Gras
          ),
       ),
@@ -62,7 +62,15 @@ class HomePage extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> Connexion()));
                                   },
-                                  child: const Text('Commencer'),
+                                   style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(color: Colors.deepPurple),
+                                    ),
+                                  ),
+                                  child: const Text('Commencer',
+                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    ),
                                 ),
                               ),
                             ),
