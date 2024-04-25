@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gestion_tickets/control/control_page.dart';
@@ -12,23 +13,21 @@ class MenuView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Menu'),
-
         leading: IconButton(
-        onPressed: () {
-
-           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const MainScreen(),
-          ));
-
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const MainScreen(),
+            ));
           },
-        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
-      ),
+          icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildDailyMenu(context, 'Menu du jour', 'Description du menu', 'assets/rizPoisson.jpg', context),
+            _buildDailyMenu(context, 'Menu du jour', 'Description du menu',
+                'assets/rizPoisson.jpg', context),
             SizedBox(height: 20), // Espacement entre les sections
             _buildWeeklyMenu(context),
           ],
@@ -37,7 +36,8 @@ class MenuView extends StatelessWidget {
     );
   }
 
-  Widget _buildDailyMenu(BuildContext context, String title, String subtitle, String imagePath, BuildContext parentContext) {
+  Widget _buildDailyMenu(BuildContext context, String title, String subtitle,
+      String imagePath, BuildContext parentContext) {
     return Card(
       elevation: 5,
       margin: EdgeInsets.all(10),
@@ -83,7 +83,16 @@ class MenuView extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, String dayOfWeek, String title1, String subtitle1, String imagePath1, String title2, String subtitle2, String imagePath2, double screenWidth) {
+  Widget _buildMenuItem(
+      BuildContext context,
+      String dayOfWeek,
+      String title1,
+      String subtitle1,
+      String imagePath1,
+      String title2,
+      String subtitle2,
+      String imagePath2,
+      double screenWidth) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -100,8 +109,10 @@ class MenuView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildMenuCard(title1, subtitle1, imagePath1, screenWidth / 2 - 20, context),
-              _buildMenuCard(title2, subtitle2, imagePath2, screenWidth / 2 - 20, context),
+              _buildMenuCard(
+                  title1, subtitle1, imagePath1, screenWidth / 2 - 20, context),
+              _buildMenuCard(
+                  title2, subtitle2, imagePath2, screenWidth / 2 - 20, context),
             ],
           ),
         ),
@@ -109,7 +120,8 @@ class MenuView extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuCard(String title, String subtitle, String imagePath, double cardWidth, BuildContext context) {
+  Widget _buildMenuCard(String title, String subtitle, String imagePath,
+      double cardWidth, BuildContext context) {
     return Card(
       elevation: 5,
       margin: EdgeInsets.all(10),
@@ -165,19 +177,82 @@ class MenuView extends StatelessWidget {
         children: [
           _buildWeeklyMenuTitle(),
           Divider(), // Ligne de séparation entre le titre et les menus
-          _buildMenuItem(context, 'Lundi', 'Dèjeuner', 'Description du menu', 'assets/maafe.jpg', 'Diner', 'Description du menu', 'assets/rizYapp.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Lundi',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/maafe.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              screenWidth),
           Divider(), // Ligne de séparation entre les menus
-          _buildMenuItem(context, 'Mardi', 'Dèjeuner', 'Description du menu', 'assets/rizYapp.jpg', 'Diner', 'Description du menu', 'assets/mbaxal.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Mardi',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/mbaxal.jpg',
+              screenWidth),
           Divider(), // Ligne de séparation entre les menus
-          _buildMenuItem(context, 'Mercredi', 'Dèjeuner', 'Description du menu', 'assets/rizYapp.jpg', 'Diner', 'Description du menu', 'assets/mbaxal.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Mercredi',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/mbaxal.jpg',
+              screenWidth),
           Divider(),
-          _buildMenuItem(context, 'Jeudi', 'Dèjeuner', 'Description du menu', 'assets/rizYapp.jpg', 'Diner', 'Description du menu', 'assets/mbaxal.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Jeudi',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/mbaxal.jpg',
+              screenWidth),
           Divider(),
-          _buildMenuItem(context, 'Vendredi', 'Dèjeuner', 'Description du menu', 'assets/rizYapp.jpg', 'Diner', 'Description du menu', 'assets/mbaxal.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Vendredi',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/mbaxal.jpg',
+              screenWidth),
           Divider(),
-          _buildMenuItem(context, 'Samedi', 'Dèjeuner', 'Description du menu', 'assets/rizYapp.jpg', 'Diner', 'Description du menu', 'assets/mbaxal.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Samedi',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/mbaxal.jpg',
+              screenWidth),
           Divider(),
-          _buildMenuItem(context, 'Dimanche', 'Dèjeuner', 'Description du menu', 'assets/rizYapp.jpg', 'Diner', 'Description du menu', 'assets/mbaxal.jpg', screenWidth),
+          _buildMenuItem(
+              context,
+              'Dimanche',
+              'Dèjeuner',
+              'Description du menu',
+              'assets/rizYapp.jpg',
+              'Diner',
+              'Description du menu',
+              'assets/mbaxal.jpg',
+              screenWidth),
           Divider(),
           // Ajoutez les menus pour les autres jours de la semaine ici...
         ],
@@ -250,12 +325,25 @@ class MenuView extends StatelessWidget {
                         .debiterTickets(
                       idEtudiant: FirebaseAuth.instance.currentUser!.uid,
                       nombreTicketsRepas: quantity,
-                      nombreTicketsPetitDej: 0, // Nombre de petit déjeuner, à ajuster si nécessaire
+                      nombreTicketsPetitDej:
+                          0, // Nombre de petit déjeuner, à ajuster si nécessaire
                     );
+
+                    // Enregistrer la réservation dans la collection "reservations"
+                    await FirebaseFirestore.instance
+                        .collection('reservations')
+                        .add({
+                      'user_id': FirebaseAuth.instance.currentUser!.uid,
+                      'nombre_plats': quantity,
+                      'type_repas':
+                          'repas', // Ajoutez le type de repas ici si nécessaire
+                      'date_reservation': DateTime.now(),
+                    });
 
                     // Mettre à jour le solde des tickets repas dans PageSoldeTickets
                     await Provider.of<EtudiantModel>(context, listen: false)
-                        .fetchSoldeTicketsRepasFromFirestore(FirebaseAuth.instance.currentUser!.uid);
+                        .fetchSoldeTicketsRepasFromFirestore(
+                            FirebaseAuth.instance.currentUser!.uid);
 
                     // Afficher un message de confirmation
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -266,11 +354,11 @@ class MenuView extends StatelessWidget {
 
                     // Mettre à jour le solde des tickets repas dans PageSoldeTickets
                     Provider.of<EtudiantModel>(context, listen: false)
-                        .fetchSoldeTicketsRepasFromFirestore(FirebaseAuth.instance.currentUser!.uid);
+                        .fetchSoldeTicketsRepasFromFirestore(
+                            FirebaseAuth.instance.currentUser!.uid);
 
                     Navigator.of(context).pop();
                   },
-
                   child: Text('Réserver'),
                 ),
               ],
