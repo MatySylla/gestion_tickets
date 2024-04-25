@@ -4,9 +4,9 @@ import 'package:gestion_tickets/login/connexion.dart';
 
 class HomePage extends StatelessWidget {
   final List<String> images = [
-    'assets/e-tick.jpeg',
-    'assets/gere.jpeg',
-    'assets/num.jpeg',
+    'assets/s1.jpg',
+    'assets/s2.jpg',
+    'assets/s3.jpg',
     // Add more image paths as needed
   ];
 
@@ -17,7 +17,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bienvenue chez CROUS-T Electronique'),
+        title: const Text('Bienvenue chez E-CROUS',
+         style: TextStyle(fontWeight: FontWeight.bold), // Gras
+         ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
