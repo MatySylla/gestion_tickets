@@ -80,7 +80,8 @@ class AccueilPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Icon(icon, size: 24),
+             
+              Icon(icon, color:Colors.deepPurple ),
               SizedBox(width: 8),
               Text(
                 label,
