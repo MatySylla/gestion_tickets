@@ -23,7 +23,9 @@ class _AccueilPersonnelState extends State<AccueilPersonnel> with SingleTickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Accueil Personnel'),
+        backgroundColor: Colors.deepPurple,
+        elevation: 0,
+        title: const Text('E-CROUS'),
       ),
       body: TabBarView(
         controller: _tabController,
@@ -33,7 +35,7 @@ class _AccueilPersonnelState extends State<AccueilPersonnel> with SingleTickerPr
           const ListeReservations(),
           const ListeEtudiants(),
         ],
-              ),
+      ),
       bottomNavigationBar: Material(
         child: TabBar(
           controller: _tabController,
@@ -49,70 +51,69 @@ class _AccueilPersonnelState extends State<AccueilPersonnel> with SingleTickerPr
   }
 
   Widget _buildAccueilTab() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            color: Colors.white,
-            child: const Text(
-              'Bienvenue !',
-              style: TextStyle(
-                fontSize: 24.0,
-                color: Colors.deepPurple,
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-
-          Image.asset(
-          'assets/welcome_image.png', // Remplacez le chemin par le chemin de votre image locale
-          height: 200, // Ajustez la hauteur selon vos besoins
-          width: double.infinity, // Ajustez la largeur pour occuper toute la largeur de l'écran
-          fit: BoxFit.cover, // Ajustez le mode de remplissage selon vos besoins
-        ),
-        SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(child: _buildFeatureCard(context, 'Nofication')),
-              SizedBox(width: 10),
-              Expanded(child: _buildFeatureCard(context, "Historique")),
-            ],
-          ),
-          SizedBox(height: 10),
-          // Autres fonctionnalités ou sections de la page d'accueil
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFeatureCard(BuildContext context, String title) {
-    return Card(
-      elevation: 5,
-      child: InkWell(
-        onTap: () {
-          // Action à effectuer lorsque la carte est appuyée
-        },
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 18),
-            ),
+  return Stack(
+    alignment: Alignment.topLeft, // Alignement au coin supérieur gauche
+    children: [
+      Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/AP.jpg'),
+            fit: BoxFit.fill,
           ),
         ),
       ),
-    );
-  }
+      SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 170, vertical: 200),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            _buildFeatureCard(Icons.history, 'Historique', () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const ListeEtudiants(),
+                   ));}),
+            SizedBox(height: 10),
+            _buildFeatureCard(Icons.list, 'Réservations', () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const ListeReservations(),
+                   ));}),
+            SizedBox(height: 10),
+            _buildFeatureCard(Icons.group, 'Etudiants', () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const ListeEtudiants(),
+                   ));
+            }),
+            // Autres fonctionnalités ou sections de la page d'accueil
+          ],
+        ),
+      ),
+    ],
+  );
+}
 
-  Widget _buildValidationTab() {
-    // Contenu de l'onglet Validation
-    return Center(
-      child: Text('Validation'),
+
+  Widget _buildFeatureCard(IconData icon, String label, VoidCallback onTap) {
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        elevation: 4,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                Icon(icon, size: 24),
+                SizedBox(width: 8),
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
-

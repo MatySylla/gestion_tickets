@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestion_tickets/portier/accueilPers.dart';
 
 class ListeReservations extends StatelessWidget {
   const ListeReservations({Key? key}) : super(key: key);
@@ -15,7 +16,17 @@ class ListeReservations extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Liste des Réservations'),
+        title: Text('Liste des Réservations journalière'),
+        leading: IconButton(
+        onPressed: () {
+
+           Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const AccueilPersonnel(),
+          ));
+
+          },
+        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+      ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

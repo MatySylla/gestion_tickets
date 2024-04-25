@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gestion_tickets/portier/accueilPers.dart';
 
 class HistoriqueAchats extends StatelessWidget {
   const HistoriqueAchats({Key? key}) : super(key: key);
@@ -9,6 +10,17 @@ class HistoriqueAchats extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Historique des Achats'),
+
+        leading: IconButton(
+        onPressed: () {
+
+           Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const AccueilPersonnel(),
+          ));
+
+          },
+        icon: const Icon(Icons.arrow_back, color: Colors.deepPurple),
+      ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('tickets').snapshots(),
