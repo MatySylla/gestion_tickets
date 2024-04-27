@@ -26,7 +26,7 @@ class MenuView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildDailyMenu(context, 'Menu du jour', 'Description du menu',
+            _buildDailyMenu(context, 'Menu du jour', 'Riz au poisson',
                 'assets/rizPoisson.jpg', context),
             SizedBox(height: 20), // Espacement entre les sections
             _buildWeeklyMenu(context),
@@ -126,7 +126,7 @@ class MenuView extends StatelessWidget {
       elevation: 5,
       margin: EdgeInsets.all(10),
       child: SizedBox(
-        width: cardWidth / 2 - 20,
+        width: cardWidth / 1 - 20,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -181,22 +181,22 @@ class MenuView extends StatelessWidget {
               context,
               'Lundi',
               'Dèjeuner',
-              'Description du menu',
+              'Maafé',
               'assets/maafe.jpg',
               'Diner',
-              'Description du menu',
-              'assets/rizYapp.jpg',
+              'Poulet roti',
+              'assets/pouletRoti.jpeg',
               screenWidth),
           Divider(), // Ligne de séparation entre les menus
           _buildMenuItem(
               context,
               'Mardi',
               'Dèjeuner',
-              'Description du menu',
+              'Riz a la viande',
               'assets/rizYapp.jpg',
               'Diner',
-              'Description du menu',
-              'assets/mbaxal.jpg',
+              'Macaroni',
+              'assets/macaroni.jpeg',
               screenWidth),
           Divider(), // Ligne de séparation entre les menus
           _buildMenuItem(
@@ -264,7 +264,7 @@ class MenuView extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.all(8),
       child: Text(
-        'Menus de la semaine',
+        'Menu de la semaine',
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
@@ -348,7 +348,7 @@ class MenuView extends StatelessWidget {
                     // Afficher un message de confirmation
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Repas réservé avec succès'),
+                        content: Text('réservation enregistrée avec succès'),
                       ),
                     );
 
