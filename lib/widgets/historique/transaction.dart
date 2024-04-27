@@ -56,36 +56,36 @@ class _HistoriqueTransactionsPageState
               return const Center(child: Text('Aucune transaction trouvée.'));
             }
             return ListView.builder(
-              itemCount: transactions.length,
-              itemBuilder: (context, index) {
-                final transaction = transactions[index];
-                final nombreTicketsRepas = transaction['nombreTicketsRepas'];
-                final nombreTicketsPetitDej =
-                    transaction['nombreTicketsPetitDej'];
-                final prixTotal = transaction['prix_total'];
-                final timestamp = transaction['timestamp'];
+                itemCount: transactions.length,
+                itemBuilder: (context, index) {
+                  final transaction = transactions[index];
+                  final nombreTicketsRepas = transaction['nombreTicketsRepas'];
+                  final nombreTicketsPetitDej =
+                      transaction['nombreTicketsPetitDej'];
+                  final prixTotal = transaction['prix_total'];
+                  final timestamp = transaction['timestamp'];
 
-                return Card(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Date: ${timestamp.toDate()}',style: const TextStyle(fontWeight: FontWeight.bold) ,),
+                  return Card(
+                    child: ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Date: ${timestamp.toDate()}',style: const TextStyle(fontWeight: FontWeight.bold) ,),
+                          
+                          Text('$prixTotal FCFA'),
                         
-                        Text('$prixTotal FCFA'),
-                       
-                      ],
+                        ],
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Tickets Petit Déj: $nombreTicketsPetitDej'),
+                          Text('Tickets Repas: $nombreTicketsRepas'),
+                        ],
+                      ),
                     ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Tickets Petit Déj: $nombreTicketsPetitDej'),
-                        Text('Tickets Repas: $nombreTicketsRepas'),
-                      ],
-                    ),
-                  ),
-                );
-              },
+                  );
+                },
             );
           }
         },
