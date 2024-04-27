@@ -63,7 +63,7 @@ class _AccueilPersonnelState extends State<AccueilPersonnel> with SingleTickerPr
         ),
       ),
       SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 170, vertical: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 200),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
