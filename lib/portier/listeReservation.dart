@@ -45,55 +45,56 @@ class ListeReservations extends StatelessWidget {
               return Center(child: Text('Aucune réservation trouvée pour aujourd\'hui.'));
             }
             return ListView.builder(
-              itemCount: reservations.length,
-              itemBuilder: (context, index) {
-                final reservation = reservations[index];
-                final dateReservation = reservation['date_reservation'];
-                final nombrePlats = reservation['nombre_plats'];
-                final typeRepas = reservation['type_repas'];
-                final userId = reservation['user_id'];
+                itemCount: reservations.length,
+                itemBuilder: (context, index) {
+                  final reservation = reservations[index];
+                  final dateReservation = reservation['date_reservation'];
+                  final nombrePlats = reservation['nombre_plats'];
+                  final typeRepas = reservation['type_repas'];
+                  final userId = reservation['user_id'];
 
-                return FutureBuilder(
-                  future: Future.wait([
-                    FirebaseFirestore.instance.collection('etudiant').doc(userId).get(),
-                    FirebaseFirestore.instance.collection('etudiant').doc(userId).get(),
-                  ]),
-                  builder: (context, AsyncSnapshot<List<DocumentSnapshot>> userSnapshots) {
-                    if (userSnapshots.connectionState == ConnectionState.waiting) {
-                      return SizedBox.shrink();
-                    } else if (userSnapshots.hasError) {
-                      return SizedBox.shrink();
-                    } else {
-                      final userData = userSnapshots.data![0].data() as Map<String, dynamic>;
-                      final nom = userData['nom'];
-                      final prenom = userData['prenom'];
-                      final userDataReserver = userSnapshots.data![1].data() as Map<String, dynamic>;
-                      final nomReserver = userDataReserver['nom'];
-                      final prenomReserver = userDataReserver['prenom'];
+                  return FutureBuilder(
+                    future: Future.wait([
+                      FirebaseFirestore.instance.collection('etudiant').doc(userId).get(),
+                      FirebaseFirestore.instance.collection('etudiant').doc(userId).get(),
+                    ]),
+                    builder: (context, AsyncSnapshot<List<DocumentSnapshot>> userSnapshots) {
+                      if (userSnapshots.connectionState == ConnectionState.waiting) {
+                        return SizedBox.shrink();
+                      } else if (userSnapshots.hasError) {
+                        return SizedBox.shrink();
+                      } else {
+                        final userData = userSnapshots.data![0].data() as Map<String, dynamic>;
+                        final nom = userData['nom'];
+                        final prenom = userData['prenom'];
+                        final userDataReserver = userSnapshots.data![1].data() as Map<String, dynamic>;
+                        final nomReserver = userDataReserver['nom'];
+                        final prenomReserver = userDataReserver['prenom'];
 
-                      return Card(
-                        child: ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Utilisateur: $prenom $nom'),
-                              Text('Réservé par: $prenomReserver $nomReserver'),
-                            ],
+                        return Card(
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Utilisateur: $prenom $nom'),
+                                Text('Réservé par: $prenomReserver $nomReserver'),
+                              ],
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Date de réservation: ${dateReservation.toDate()}'),
+                                Text('Nombre de plats: $nombrePlats'),
+                                Text('Type de repas: $typeRepas'),
+                              ],
+                            ),
                           ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Date de réservation: ${dateReservation.toDate()}'),
-                              Text('Nombre de plats: $nombrePlats'),
-                              Text('Type de repas: $typeRepas'),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                );
-              },
+                        );
+                      }
+                    },
+                  );
+                },
+              
             );
           }
         },
