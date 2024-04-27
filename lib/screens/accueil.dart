@@ -17,7 +17,7 @@ class AccueilPage extends StatelessWidget {
           builder: (context, etudiantModel, child) {
             return Text(
               etudiantModel.etudiant != null
-                  ? '${etudiantModel.etudiant!.nom} ${etudiantModel.etudiant!.prenom}'
+                  ? '${etudiantModel.etudiant!.prenom} ${etudiantModel.etudiant!.nom}'
                   : 'Chargement...',
               style: const TextStyle(fontSize: 20),
             );
@@ -38,7 +38,7 @@ class AccueilPage extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 175, vertical: 150), // Ajustement du padding
+          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 150), // Ajustement du padding
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
