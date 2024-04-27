@@ -131,7 +131,7 @@ class SignUpPage extends StatelessWidget {
                     if (value == null ||
                         value.isEmpty ||
                         !RegExp(
-                            r'^[a-zA-Z]+\.[a-zA-Z]+@univ-thies\.sn$')
+                            r'^[a-zA-Z]+\.[a-zA-Z0-9]+@univ-thies\.sn$')
                             .hasMatch(value)) {
                       return 'Veuillez saisir votre adresse e-mail universitaire au format "prenom.nom@univ-thies.sn"';
                     }

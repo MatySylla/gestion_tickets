@@ -4,7 +4,7 @@ import 'package:gestion_tickets/compositions/messageErreur.dart';
 import 'package:gestion_tickets/control/control_page.dart';
 import 'package:gestion_tickets/login/ResetPasswordPage.dart';
 import 'package:gestion_tickets/login/inscription.dart';
-import 'package:gestion_tickets/portier/admin.dart';
+import 'package:gestion_tickets/portier/accueilPers.dart';
 import 'package:gestion_tickets/provider/EtudiantModel.dart';
 import 'package:provider/provider.dart'; // Importez la page d'inscription
 
@@ -37,7 +37,7 @@ class _ConnexionState extends State<Connexion> {
     }
 
     if (value.length != 11 || !RegExp(r'^[0-9]+$').hasMatch(value)) {
-      return 'Le mot de passe doit contenir exactement 11 chiffres';
+      return 'Le mot de passe est incorrect';
     }
     return null;
   }
@@ -62,7 +62,7 @@ class _ConnexionState extends State<Connexion> {
         if (_emailController.text.trim() == 'mdiarra.ndiaye1@univ-thies.sn') {
           // Rediriger vers la page de débit de tickets
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PageDebitTickets(),
+            builder: (context) => AccueilPersonnel(),
           ));
         } else {
           // Rediriger vers la page d'accueil de l'étudiant
