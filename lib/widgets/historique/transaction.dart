@@ -70,10 +70,14 @@ class _HistoriqueTransactionsPageState
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Date: ${timestamp.toDate()}',style: const TextStyle(fontWeight: FontWeight.bold) ,),
-                          
+                          Expanded(
+                            child: Text(
+                              'Date: ${timestamp.toDate()}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                           Text('$prixTotal FCFA'),
-                        
                         ],
                       ),
                       subtitle: Column(
@@ -85,6 +89,7 @@ class _HistoriqueTransactionsPageState
                       ),
                     ),
                   );
+
                 },
             );
           }
