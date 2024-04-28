@@ -76,8 +76,18 @@ class ListeReservations extends StatelessWidget {
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Utilisateur: $prenom $nom'),
-                                Text('Réservé par: $prenomReserver $nomReserver'),
+                                Expanded(
+                                  child: Text(
+                                    'Utilisateur: $prenom $nom',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'Réservé par: $prenomReserver $nomReserver',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                               ],
                             ),
                             subtitle: Column(
@@ -90,6 +100,7 @@ class ListeReservations extends StatelessWidget {
                             ),
                           ),
                         );
+
                       }
                     },
                   );
